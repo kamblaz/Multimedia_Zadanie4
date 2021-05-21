@@ -1,9 +1,11 @@
 const process = (pixels) => {
-    const colorsAverage = calculateSliceAverageColor(pixels);
+    const { r, g, b } = calculateSliceAverageColor(pixels);
     for (let i = 0; i < pixels.length; i += 4) {
-        pixels[i] = colorsAverage.r;
-        pixels[i + 1] = colorsAverage.g;
-        pixels[i + 2] = colorsAverage.b;
+        if (Math.random() < 0.5) {
+            pixels[i] = r;
+            pixels[i + 1] = g;
+            pixels[i + 2] = b;
+        }
     }
 }
 

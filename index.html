@@ -6,65 +6,13 @@
 <body>
     <canvas id="canvas_input"></canvas>
     <br>
-    <canvas id="canvas_output"></canvas>
-    <script>
-        const worker = new Worker("worker.js", {
-            type: "module"
-        });
-
-        worker.onmessage = receiveFromWorker;
-        const worker2 = worker;
-        const worker3 = worker;
-        const worker4 = worker;
-        const worker5 = worker;
-        let imageData, context_input, context_output;
-        const url = "maxresdefault.jpg";
-
-        window.onload = function() {
-            const img = new Image();
-            img.crossOrigin = "Anonymous";
-            img.src = url;
-            img.onload = () => {
-                const canvas_input = document.getElementById("canvas_input");
-                canvas_input.width = img.width;
-                canvas_input.height = img.height;
-                context_input = canvas_input.getContext("2d");
-                context_input.drawImage(img, 0, 0);
-                imageData = context_input.getImageData(0, 0, canvas_input.width, canvas_input.height);
-                sendToWorker();
-            };
-        };
-
-        function sendToWorker() {
-            worker.postMessage({
-                imageData,
-            });
-            worker2.postMessage({
-                imageData,
-            });
-            worker3.postMessage({
-                imageData,
-            });
-            worker4.postMessage({
-                imageData,
-            });
-            worker5.postMessage({
-                imageData,
-            });
-        }
-
-        function receiveFromWorker(e) {
-            const img = new Image();
-            img.crossOrigin = "Anonymous";
-            img.src = url;
-            canvas_output = document.getElementById('canvas_output');
-            canvas_output.width = img.width;
-            canvas_output.height = img.height;
-            context_output = canvas_output.getContext("2d");
-            context_output.drawImage(img, 0, 0);
-            context_output.putImageData(e.data, 0, 0);
-        }
-    </script>
+    <button id="start_processing">Create histogram</button>
+    <br>
+    <canvas id="histogram_output"></canvas>
+    <button id="start_noise">Create noise</button>
+    <br>
+    <canvas id="noise_output"></canvas>
 </body>
+<script type="module" src="./index.js"></script>
 
 </html>
